@@ -1,0 +1,1 @@
+Bonjour ! Ceci est un exemple de texte à nettoyer. Il contient des mots, de la ponctuation, et des caractères spéciaux.
