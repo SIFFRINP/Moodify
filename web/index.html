@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Prédicteur de lettres - Moodify</title>
+    <script type="module" src="predictorFrontend.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        input { font-size: 1.2em; padding: 5px; }
+        .result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+<h1>Prédicteur de lettres (Markov)</h1>
+<label for="contextInput">Entrez une ou plusieurs lettres :</label>
+<input type="text" id="contextInput" />
+<div class="result" id="predictionResult"></div>
+</body>
+</html>
