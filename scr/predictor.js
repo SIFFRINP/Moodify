@@ -42,3 +42,26 @@ export function getSortedPredictions(context) {
     )(prediction);
 }
 
+const wordsList = JSON.parse(fs.readFileSync(new URL('../data/words.json', import.meta.url), 'utf8'));
+
+export function getBestWordCompletions(context, maxSuggestions = 3) {
+    const prefix = context.join('');
+    const matchingWords = wordsList.filter(w => w.startsWith(prefix));
+
+    const scored = matchingWords.map(word => {
+        let prob = 1.0;
+        const letters = ['^', ...word.split(''), '$'];
+        for (let i = 0; i < letters.length - 1; i++) {
+            const ctx = letters.slice(Math.max(0, i - maxOrder + 1), i + 1).join('');
+            const next = letters[i + 1];
+            const p = modelData[ctx.length]?.[ctx]?.[next] || 0.0001;
+            prob *= p;
+        }
+        return { word, score: prob };
+    });
+
+    return R.pipe(
+        R.sortBy(w => -w.score),
+        R.take(maxSuggestions)
+    )(scored);
+}
