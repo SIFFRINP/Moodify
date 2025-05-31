@@ -1,7 +1,7 @@
 {
   "name": "moodify",
   "version": "1.0.0",
-  "description": "",
+  "description": "Projet de prédiction de lettres basé sur un modèle de Markov, avec une interface web et une interface en ligne de commande.",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -9,10 +9,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SIFFRINP/Moodify.git"
+    "url": "git+https://github.com/SIFFRINP/Moodify.git"
   },
   "private": true,
   "dependencies": {
     "ramda": "^0.30.1"
-  }
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SIFFRINP/Moodify/issues"
+  },
+  "homepage": "https://github.com/SIFFRINP/Moodify#readme"
 }

@@ -80,7 +80,53 @@ function renderPrediction({ key, n, prediction }) {
     html += `</div>`;
 
     resultDiv.innerHTML = html;
+
+
+    renderKeyboard(prediction);
 }
+
+function renderKeyboard(prediction) {
+    const container = document.getElementById('keyboardContainer');
+    container.innerHTML = '';
+
+    const layout = [
+        ['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+        ['q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm'],
+        ['w', 'x', 'c', 'v', 'b', 'n']
+    ];
+
+    const total = Object.values(prediction).reduce((acc, val) => acc + val, 0);
+
+    for (const row of layout) {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'keyboard-row';
+
+        for (const letter of row) {
+            const weight = prediction[letter] || 0.0001; // éviter 0
+            const percentage = (weight / total) * 100;
+            const size = Math.max(32, Math.min(80, percentage * 3));
+
+            const keyEl = document.createElement('div');
+            keyEl.className = 'key';
+            keyEl.textContent = letter;
+            keyEl.style.fontSize = `${size / 3}px`;
+            keyEl.style.backgroundColor = `rgba(100, 149, 237, ${Math.min(1, weight * 10)})`;
+            keyEl.style.minWidth = `${size}px`;
+            keyEl.style.minHeight = `${size}px`;
+
+            keyEl.addEventListener('click', () => {
+                const input = document.getElementById('contextInput');
+                input.value += letter;
+                input.dispatchEvent(new Event('input'));
+            });
+
+            rowEl.appendChild(keyEl);
+        }
+
+        container.appendChild(rowEl);
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadModel();
